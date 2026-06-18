@@ -9,6 +9,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_executable(
     chip-8-emu
     src/main.cpp
+    src/Chip8.cpp
 )
 
 target_compile_options(

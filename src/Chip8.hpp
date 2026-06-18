@@ -7,6 +7,7 @@
 class Chip8
 {
 public:
+    Chip8(const std::string& rom_path);
     bool loadRom(const std::string& rom_path);
     void loadFont();
 
