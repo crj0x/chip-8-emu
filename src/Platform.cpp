@@ -82,7 +82,6 @@ bool Platform::processInput(std::array<bool, 16>& keys)
 
 void Platform::updateScreen(const std::array<std::array<bool, 64>, 32>& display_state)
 {
-    std::array<uint32_t, 32 * 64> pixels;
     for (uint8_t y = 0; y < 32; ++y)
     {
         for (uint8_t x = 0; x < 64; ++x)

@@ -17,5 +17,7 @@ private:
     SDL_Renderer* renderer{};
     SDL_Texture* texture{};
 
+    std::array<uint32_t, 32 * 64> pixels{};
+
     uint32_t scale{16};
 };
