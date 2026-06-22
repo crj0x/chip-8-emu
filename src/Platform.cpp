@@ -13,7 +13,7 @@ Platform::Platform()
 
     // create texture
     // we use SDL_TEXTUREACCESS_STREAMING as this texture will change frequently
-    texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, 64, 32);
+    texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, 64, 32);
 }
 
 Platform::~Platform()
@@ -75,4 +75,23 @@ bool Platform::processInput(std::array<bool, 16>& keys)
     keys[0xF] = key_states[SDL_SCANCODE_V];
 
     return is_running;
+}
+
+void Platform::updateScreen(const std::array<std::array<bool, 64>, 32>& display_state)
+{
+    std::array<uint32_t, 32 * 64> pixels;
+    for (uint8_t y = 0; y < 32; ++y)
+    {
+        for (uint8_t x = 0; x < 64; ++x)
+        {
+            uint32_t color = (display_state[y][x]) ? 0xFFFFFFFF : 0x000000FF;
+            pixels[64 * y + x] = color;
+        }
+    }
+
+    SDL_UpdateTexture(texture, nullptr, pixels.data(), 64 * sizeof(uint32_t));
+
+    SDL_RenderClear(renderer);
+    SDL_RenderTexture(renderer, texture, nullptr, nullptr);
+    SDL_RenderPresent(renderer);
 }

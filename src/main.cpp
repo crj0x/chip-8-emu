@@ -8,7 +8,19 @@ int main(int argc, char* argv[])
 
     Platform platform;
 
-    SDL_Delay(3000);
+    bool is_running = true;
+
+    while (is_running)
+    {
+        // handle inputs
+        is_running = platform.processInput(chip8.getKeys());
+
+        // emulate one CPU cycle
+        chip8.cycle();
+
+        // update window
+        platform.updateScreen(chip8.getDisplayState());
+    }
 
     return 0;
 }
