@@ -30,3 +30,49 @@ Platform::~Platform()
     // quit sdl
     SDL_Quit();
 }
+
+bool Platform::processInput(std::array<bool, 16>& keys)
+{
+    bool is_running = true;
+    SDL_Event event;
+
+    // handle quitting
+    while (SDL_PollEvent(&event))
+    {
+        if (event.type == SDL_EVENT_QUIT)
+        {
+            is_running = false;
+        }
+    }
+
+    const bool* key_states = SDL_GetKeyboardState(nullptr);
+    // map the physical keyboard to chip-8 keys
+    /*
+        Original Keypad:    Modern Keyboard:
+        1 2 3 C             1 2 3 4
+        4 5 6 D             Q W E R
+        7 8 9 E             A S D F
+        A 0 B F             Z X C V
+    */
+    keys[0x1] = key_states[SDL_SCANCODE_1];
+    keys[0x2] = key_states[SDL_SCANCODE_2];
+    keys[0x3] = key_states[SDL_SCANCODE_3];
+    keys[0xC] = key_states[SDL_SCANCODE_4];
+
+    keys[0x4] = key_states[SDL_SCANCODE_Q];
+    keys[0x5] = key_states[SDL_SCANCODE_W];
+    keys[0x6] = key_states[SDL_SCANCODE_E];
+    keys[0xD] = key_states[SDL_SCANCODE_R];
+
+    keys[0x7] = key_states[SDL_SCANCODE_A];
+    keys[0x8] = key_states[SDL_SCANCODE_S];
+    keys[0x9] = key_states[SDL_SCANCODE_D];
+    keys[0xE] = key_states[SDL_SCANCODE_F];
+
+    keys[0xA] = key_states[SDL_SCANCODE_Z];
+    keys[0x0] = key_states[SDL_SCANCODE_X];
+    keys[0xB] = key_states[SDL_SCANCODE_C];
+    keys[0xF] = key_states[SDL_SCANCODE_V];
+
+    return is_running;
+}

@@ -78,6 +78,11 @@ void Chip8::loadFont()
     }
 }
 
+std::array<bool, 16>& Chip8::getKeys()
+{
+    return keys;
+}
+
 uint8_t Chip8::getRandByte()
 {
     uint8_t random_byte = distrib(rand_gen);

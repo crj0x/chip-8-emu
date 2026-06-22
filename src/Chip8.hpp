@@ -11,10 +11,9 @@ public:
     Chip8(const std::string& rom_path);
     bool loadRom(const std::string& rom_path);
     void loadFont();
-
     void decodeAndExecute();
     void cycle();
-
+    std::array<bool, 16>& getKeys();
     uint8_t getRandByte();
 
 private:
