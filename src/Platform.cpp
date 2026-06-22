@@ -14,6 +14,9 @@ Platform::Platform()
     // create texture
     // we use SDL_TEXTUREACCESS_STREAMING as this texture will change frequently
     texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, 64, 32);
+    // by default renderer uses SDL_SCALEMODE_LINEAR which makes screen look blurry
+    // so we change scalemode for sharp scaling
+    SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_PIXELART);
 }
 
 Platform::~Platform()
