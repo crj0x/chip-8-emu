@@ -18,8 +18,11 @@ public:
     uint8_t getRandByte();
 
 private:
+    static constexpr uint16_t START_ADDRESS{0x200}; // address for loading rom
+    static constexpr uint16_t FONT_START{0x50};     // address for loading font
+
     std::array<uint8_t, 4096> memory{}; // 4 kilobytes of ram
-    uint16_t pc{};                      // instruction pointer / program counter
+    uint16_t pc{START_ADDRESS};         // instruction pointer / program counter
     uint16_t I{};                       // special register (primarily used to point at memory locations)
     std::array<uint16_t, 16> stack{};   // to call subroutines / functions
     uint8_t sp{};                       // stack pointer
@@ -29,9 +32,6 @@ private:
     std::array<std::array<bool, 64>, 32> display_state{};
     uint16_t opcode{};
     std::array<bool, 16> keys{}; // true if pressed, false if not pressed
-
-    static constexpr uint16_t START_ADDRESS{0x200}; // address for loading rom
-    static constexpr uint16_t FONT_START{0x50};     // address for loading font
 
     // random number generation
     // the engine is a member variable as it needs to maintain its state
