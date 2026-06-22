@@ -13,6 +13,7 @@ public:
     void loadFont();
     void decodeAndExecute();
     void cycle();
+    const std::array<std::array<bool, 64>, 32>& getDisplayState();
     std::array<bool, 16>& getKeys();
     uint8_t getRandByte();
 
@@ -25,7 +26,7 @@ private:
     std::array<uint8_t, 16> V{};        // 16 general purpose registers (V0 - VF)
     uint8_t delay_timer{};
     uint8_t sound_timer{};
-    std::array<std::array<bool, 64>, 32> display{};
+    std::array<std::array<bool, 64>, 32> display_state{};
     uint16_t opcode{};
     std::array<bool, 16> keys{}; // true if pressed, false if not pressed
 

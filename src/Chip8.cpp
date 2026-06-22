@@ -78,6 +78,11 @@ void Chip8::loadFont()
     }
 }
 
+const std::array<std::array<bool, 64>, 32>& Chip8::getDisplayState()
+{
+    return display_state;
+}
+
 std::array<bool, 16>& Chip8::getKeys()
 {
     return keys;
@@ -104,7 +109,7 @@ void Chip8::decodeAndExecute()
         {
         // 00E0 - CLS (Clear the display)
         case 0x00E0:
-            display = {};
+            display_state = {};
             break;
 
         // 00EE - RET (Return from a subroutine)
@@ -278,9 +283,9 @@ void Chip8::decodeAndExecute()
                 if (sprite_pixel)
                 {
                     // set flag if collision occurred
-                    if (display[start_i + i][start_j + j])
+                    if (display_state[start_i + i][start_j + j])
                         V[0xf] = 1;
-                    display[start_i + i][start_j + j] ^= 1;
+                    display_state[start_i + i][start_j + j] ^= 1;
                 }
             }
         }
