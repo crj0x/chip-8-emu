@@ -49,6 +49,11 @@ void Chip8::tickTimers()
         --sound_timer;
 }
 
+bool Chip8::beepNeeded()
+{
+    return sound_timer;
+}
+
 bool Chip8::loadRom(const std::string& rom_path)
 {
     // open as binary (std::ios::binary) and immediately seek to end (std::ios::ate)

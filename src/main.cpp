@@ -43,6 +43,7 @@ int main(int argc, char* argv[])
             timer_accumulator -= TIMER_DELAY;
             chip8.tickTimers();
         }
+        platform.handleAudio(chip8.beepNeeded());
 
         // update window
         platform.updateScreen(chip8.getDisplayState());

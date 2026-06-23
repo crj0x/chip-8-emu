@@ -1,4 +1,5 @@
 #include "Platform.hpp"
+#include <cmath>
 
 Platform::Platform()
 {
@@ -17,6 +18,11 @@ Platform::Platform()
     // by default renderer uses SDL_SCALEMODE_LINEAR which makes screen look blurry
     // so we change scalemode for sharp scaling
     SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_PIXELART);
+
+    // open default playback device and get audio stream
+    audio_stream = SDL_OpenAudioDeviceStream(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK, &spec, nullptr, nullptr);
+    // resume audio stream
+    SDL_ResumeAudioStreamDevice(audio_stream);
 }
 
 Platform::~Platform()
@@ -96,4 +102,25 @@ void Platform::updateScreen(const std::array<std::array<bool, 64>, 32>& display_
     SDL_RenderClear(renderer);
     SDL_RenderTexture(renderer, texture, nullptr, nullptr);
     SDL_RenderPresent(renderer);
+}
+
+void Platform::handleAudio(bool beep_needed)
+{
+    if (beep_needed)
+    {
+        int32_t queued_bytes = SDL_GetAudioStreamQueued(audio_stream);
+        int32_t target_bytes = audio_buffer.size() * sizeof(float);
+        if (queued_bytes < target_bytes)
+        {
+            for (uint32_t i = 0; i < audio_buffer.size(); i++)
+            {
+                audio_buffer[i] = std::sin(beep_phase) * volume;
+                beep_phase += beep_phase_increment;
+
+                if (beep_phase >= 2.0f * SDL_PI_F)
+                    beep_phase -= 2.0f * SDL_PI_F;
+            }
+            SDL_PutAudioStreamData(audio_stream, audio_buffer.data(), audio_buffer.size() * sizeof(float));
+        }
+    }
 }
