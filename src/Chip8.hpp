@@ -36,5 +36,5 @@ private:
     // random number generation
     // the engine is a member variable as it needs to maintain its state
     std::mt19937 rand_gen;
-    std::uniform_int_distribution<uint8_t> distrib{0, 255};
+    std::uniform_int_distribution<short> distrib{0, 255};
 };
