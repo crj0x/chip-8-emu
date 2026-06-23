@@ -112,7 +112,7 @@ void Platform::handleAudio(bool beep_needed)
         int32_t target_bytes = audio_buffer.size() * sizeof(float);
         if (queued_bytes < target_bytes)
         {
-            for (uint32_t i = 0; i < audio_buffer.size(); i++)
+            for (uint32_t i = 0; i < audio_buffer.size(); ++i)
             {
                 audio_buffer[i] = std::sin(beep_phase) * volume;
                 beep_phase += beep_phase_increment;

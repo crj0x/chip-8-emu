@@ -82,9 +82,9 @@ void Chip8::loadFont()
     // although the font can be stored anywhere in the first 512 bytes (0x000 - 0x1FF),
     // it is popular to put it at 0x50 - 0x9F, that convention has been followed here.
 
-    for (size_t i = 0; i < FONT_SET.size(); i++)
+    for (size_t i = 0; i < FONT_SET.size(); ++i)
     {
-        for (size_t j = 0; j < FONT_SET[i].size(); j++)
+        for (size_t j = 0; j < FONT_SET[i].size(); ++j)
         {
             memory[Chip8::FONT_START + i * 5 + j] = FONT_SET[i][j];
         }
@@ -284,11 +284,11 @@ void Chip8::decodeAndExecute()
         V[0xF] = 0;
         uint16_t addr = I;
 
-        for (uint8_t i = 0; i < n; i++)
+        for (uint8_t i = 0; i < n; ++i)
         {
             if (start_i + i >= 32)
                 break;
-            for (uint8_t j = 0; j < 8; j++)
+            for (uint8_t j = 0; j < 8; ++j)
             {
                 if (start_j + j >= 64)
                     break;
@@ -382,7 +382,7 @@ void Chip8::decodeAndExecute()
         case 0x55:
         {
             uint16_t addr = I;
-            for (uint8_t i = 0; i <= x; i++)
+            for (uint8_t i = 0; i <= x; ++i)
             {
                 memory[addr + i] = V[i];
             }
@@ -393,7 +393,7 @@ void Chip8::decodeAndExecute()
         case 0x65:
         {
             uint16_t addr = I;
-            for (uint8_t i = 0; i <= x; i++)
+            for (uint8_t i = 0; i <= x; ++i)
             {
                 V[i] = memory[addr + i];
             }

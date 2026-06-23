@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
 
     Platform platform;
 
-    bool is_running = true;
+    bool is_running{true};
 
     const uint64_t CYCLE_DELAY{SDL_NS_PER_SECOND / 700};
     constexpr uint64_t TIMER_DELAY{SDL_NS_PER_SECOND / 60};
@@ -43,9 +43,9 @@ int main(int argc, char* argv[])
             timer_accumulator -= TIMER_DELAY;
             chip8.tickTimers();
         }
+
         platform.handleAudio(chip8.beepNeeded());
 
-        // update window
         platform.updateScreen(chip8.getDisplayState());
     }
 

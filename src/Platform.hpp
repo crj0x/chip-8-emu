@@ -26,7 +26,7 @@ private:
     // this is how much beep phase changes between each audio data point
     static constexpr float beep_phase_increment{2.0f * SDL_PI_F * (BEEP_FREQ / AUDIO_SAMPLE_RATE)};
     // volume to control amplitude of beep wave
-    static constexpr float volume = 0.5f;
+    static constexpr float volume{0.5f};
     // keeps track of current phase of beep cycle
     float beep_phase{};
     // buffer to hold generated audio data points
