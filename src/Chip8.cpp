@@ -41,6 +41,14 @@ void Chip8::cycle()
     decodeAndExecute();
 }
 
+void Chip8::tickTimers()
+{
+    if (delay_timer > 0)
+        --delay_timer;
+    if (sound_timer > 0)
+        --sound_timer;
+}
+
 bool Chip8::loadRom(const std::string& rom_path)
 {
     // open as binary (std::ios::binary) and immediately seek to end (std::ios::ate)

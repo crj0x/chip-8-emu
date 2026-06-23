@@ -13,6 +13,7 @@ public:
     void loadFont();
     void decodeAndExecute();
     void cycle();
+    void tickTimers();
     const std::array<std::array<bool, 64>, 32>& getDisplayState();
     std::array<bool, 16>& getKeys();
     uint8_t getRandByte();
