@@ -9,19 +9,20 @@ class Chip8
 {
 public:
     Chip8(const std::string& rom_path);
-    bool loadRom(const std::string& rom_path);
-    void loadFont();
-    void decodeAndExecute();
     void cycle();
     void tickTimers();
     bool beepNeeded();
     const std::array<std::array<bool, 64>, 32>& getDisplayState();
     std::array<bool, 16>& getKeys();
-    uint8_t getRandByte();
 
 private:
     static constexpr uint16_t START_ADDRESS{0x200}; // address for loading rom
     static constexpr uint16_t FONT_START{0x50};     // address for loading font
+
+    void decodeAndExecute();
+    bool loadRom(const std::string& rom_path);
+    void loadFont();
+    uint8_t getRandByte();
 
     std::array<uint8_t, 4096> memory{}; // 4 kilobytes of ram
     uint16_t pc{START_ADDRESS};         // instruction pointer / program counter
